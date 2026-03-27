@@ -1,0 +1,2037 @@
+﻿/* =============================================
+   CASHIER SCREEN
+   ============================================= */
+
+.cashier-layout {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    gap: 24px;
+    overflow-y: auto;
+}
+
+.cashier-summary-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    flex-shrink: 0;
+}
+
+/* Premium Cashier Cards */
+.cashier-summary-cards-premium {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    flex-shrink: 0;
+    margin-bottom: 24px;
+}
+
+.cashier-card-premium {
+    background: linear-gradient(145deg, rgba(35, 35, 35, 0.95) 0%, rgba(25, 25, 25, 0.98) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 160px;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    justify-content: flex-start;
+}
+
+.cashier-card-premium::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    filter: blur(50px);
+    opacity: 0.15;
+    transition: opacity 0.3s;
+}
+
+.cashier-card-premium.balance::before {
+    background: #64b4ff;
+}
+
+.cashier-card-premium.income::before {
+    background: var(--primary);
+}
+
+.cashier-card-premium.expense::before {
+    background: #ff6b6b;
+}
+
+.cashier-card-premium:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.cashier-card-premium:hover::before {
+    opacity: 0.25;
+}
+
+.cashier-card-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.cashier-icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    background: none;
+}
+
+.cashier-icon-wrap.balance {
+    color: #64b4ff;
+}
+
+.cashier-icon-wrap.income {
+    color: var(--primary);
+}
+
+.cashier-icon-wrap.expense {
+    color: #ff6b6b;
+}
+
+.cashier-label {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-secondary);
+}
+
+.cashier-value-main {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.cashier-card-premium.balance .cashier-value-main {
+    color: #64b4ff;
+}
+
+.cashier-card-premium.income .cashier-value-main {
+    color: var(--primary);
+}
+
+.cashier-card-premium.expense .cashier-value-main {
+    color: #ff6b6b;
+}
+
+.cashier-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+    z-index: 1;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cashier-breakdown .breakdown-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-secondary);
+    padding: 3px 0;
+}
+
+.cashier-breakdown .breakdown-item i {
+    width: 18px;
+    color: var(--primary);
+    font-size: 11px;
+    margin-right: 6px;
+}
+
+.cashier-breakdown .breakdown-item span:last-child {
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.cashier-card-premium.balance .breakdown-item i.fa-arrow-up {
+    color: var(--primary);
+}
+
+.cashier-card-premium.balance .breakdown-item i.fa-arrow-down {
+    color: #ff6b6b;
+}
+
+.cashier-card-premium.expense .breakdown-item span:last-child {
+    color: var(--text-primary);
+}
+
+.cashier-card-premium.expense .breakdown-item i {
+    color: #ff6b6b;
+}
+
+/* Old styles kept for compatibility */
+.cashier-card {
+    background: linear-gradient(145deg, rgba(30, 30, 30, 0.8) 0%, rgba(20, 20, 20, 0.95) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 14px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-height: 90px;
+}
+
+.cashier-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.cashier-card-income .cashier-card-icon {
+    background: rgba(0, 255, 136, 0.15);
+    color: var(--primary);
+}
+
+.cashier-card-expense .cashier-card-icon {
+    background: rgba(255, 100, 100, 0.15);
+    color: #ff6b6b;
+}
+
+.cashier-card-balance .cashier-card-icon {
+    background: rgba(100, 180, 255, 0.15);
+    color: #64b4ff;
+}
+
+.cashier-main {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    flex: 1;
+}
+
+.cashier-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cashier-card-label {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.cashier-card-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.cashier-card-income .cashier-card-value {
+    color: var(--primary);
+}
+
+.income-breakdown {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.breakdown-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.breakdown-item i {
+    width: 16px;
+    color: var(--primary);
+    font-size: 11px;
+}
+
+.breakdown-item span {
+    font-weight: 600;
+    color: var(--primary);
+    margin-left: auto;
+}
+
+.cashier-card-expense .cashier-card-value {
+    color: #ff6b6b;
+}
+
+.cashier-transactions-section {
+    flex: 1;
+    background: linear-gradient(145deg, rgba(30, 30, 30, 0.8) 0%, rgba(20, 20, 20, 0.95) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 300px;
+}
+
+.cashier-transactions-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    flex-shrink: 0;
+}
+
+.cashier-transactions-header h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.cashier-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cashier-btn-filter {
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: transparent;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cashier-btn-filter:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    color: var(--text-secondary);
+}
+
+.cashier-btn-filter.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #000;
+}
+
+.cashier-btn-add {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    background: var(--primary);
+    color: #000;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.cashier-btn-add:hover {
+    background: var(--primary-hover);
+    transform: scale(1.05);
+}
+
+.cashier-transactions-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 20px;
+}
+
+.cashier-transaction-item {
+    display: flex;
+    align-items: center;
+    padding: 16px 18px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.cashier-transaction-item:last-child {
+    margin-bottom: 0;
+}
+
+.cashier-transaction-item:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.06);
+}
+
+.cashier-transaction-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    margin-right: 14px;
+}
+
+.cashier-transaction-item.income .cashier-transaction-icon {
+    background: rgba(0, 255, 136, 0.1);
+    color: var(--primary);
+}
+
+.cashier-transaction-item.expense .cashier-transaction-icon {
+    background: rgba(255, 100, 100, 0.1);
+    color: #ff6b6b;
+}
+
+.cashier-transaction-info {
+    flex: 1;
+}
+
+.cashier-transaction-desc {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.cashier-transaction-date {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    margin-top: 2px;
+}
+
+.cashier-transaction-value {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.cashier-transaction-item.income .cashier-transaction-value {
+    color: var(--primary);
+}
+
+.cashier-transaction-item.expense .cashier-transaction-value {
+    color: #ff6b6b;
+}
+
+.original-value-badge {
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.cashier-transaction-actions {
+    display: flex;
+    gap: 8px;
+    margin-left: 12px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.cashier-transaction-item:hover .cashier-transaction-actions {
+    opacity: 1;
+}
+
+.cashier-transaction-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: none;
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-tertiary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    transition: all 0.2s ease;
+}
+
+.cashier-transaction-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.cashier-transaction-btn.delete:hover {
+    background: rgba(255, 100, 100, 0.15);
+    color: #ff6b6b;
+}
+
+.cashier-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px;
+    text-align: center;
+    flex: 1;
+}
+
+.cashier-empty i {
+    font-size: 42px;
+    color: var(--text-tertiary);
+    margin-bottom: 16px;
+    opacity: 0.3;
+}
+
+.cashier-empty p {
+    font-size: 14px;
+    color: var(--text-tertiary);
+    margin: 0;
+}
+
+/* Transaction Edit History */
+.cashier-transaction-item.was-edited {
+    border-left: 3px solid #ffc107;
+}
+
+.transaction-edited-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    margin-left: 8px;
+    background: rgba(255, 193, 7, 0.15);
+    color: #ffc107;
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.transaction-edited-badge:hover {
+    background: rgba(255, 193, 7, 0.25);
+}
+
+.transaction-edited-badge i {
+    font-size: 9px;
+}
+
+.transaction-edit-history {
+    display: none;
+    margin-top: 12px;
+    padding: 12px;
+    background: rgba(255, 193, 7, 0.05);
+    border: 1px solid rgba(255, 193, 7, 0.15);
+    border-radius: 8px;
+}
+
+.transaction-edit-history.visible {
+    display: block;
+}
+
+.transaction-edit-history-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #ffc107;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.transaction-edit-history-title i {
+    font-size: 12px;
+}
+
+.transaction-edit-record {
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+
+.transaction-edit-record:last-child {
+    margin-bottom: 0;
+}
+
+.edit-record-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.edit-record-number {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-tertiary);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.edit-record-date {
+    font-size: 10px;
+    color: var(--text-tertiary);
+}
+
+.edit-record-details {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.edit-record-details:last-child {
+    margin-bottom: 0;
+}
+
+.edit-record-label {
+    font-size: 10px;
+    color: var(--text-tertiary);
+    min-width: 85px;
+}
+
+.edit-record-value {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.edit-record-value.income {
+    color: var(--primary);
+}
+
+.edit-record-value.expense {
+    color: #ff6b6b;
+}
+
+.edit-record-text {
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+/* Light mode adjustments */
+body.light-mode .premium-section-header {
+    border-color: rgba(0, 0, 0, 0.06);
+}
+
+body.light-mode .premium-search input {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.08);
+    color: #333;
+}
+
+body.light-mode .premium-search input:focus {
+    background: rgba(0, 204, 106, 0.04);
+}
+
+body.light-mode .premium-item-card,
+body.light-mode .premium-long-card,
+body.light-mode .cashier-card,
+body.light-mode .cashier-card-premium,
+body.light-mode .cashier-transactions-section {
+    background: #fff;
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+body.light-mode .cashier-card-premium:hover {
+    border-color: rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .cashier-label {
+    color: #888;
+}
+
+body.light-mode .cashier-breakdown {
+    border-top-color: rgba(0, 0, 0, 0.06);
+}
+
+body.light-mode .cashier-breakdown .breakdown-item {
+    color: #666;
+}
+
+body.light-mode .premium-item-card:hover,
+body.light-mode .premium-long-card:hover {
+    border-color: rgba(0, 204, 106, 0.3);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .premium-item-name,
+body.light-mode .long-card-name,
+body.light-mode .cashier-card-value,
+body.light-mode .cashier-transaction-desc {
+    color: #333;
+}
+
+body.light-mode .long-card-desc {
+    color: #888;
+}
+
+body.light-mode .long-card-duration {
+    background: rgba(0, 0, 0, 0.04);
+    color: #555;
+}
+
+body.light-mode .long-card-delete {
+    background: rgba(255, 100, 100, 0.08);
+    border-color: rgba(255, 100, 100, 0.2);
+}
+
+body.light-mode .cashier-transactions-header {
+    border-color: rgba(0, 0, 0, 0.06);
+}
+
+body.light-mode .cashier-btn-filter {
+    border-color: rgba(0, 0, 0, 0.1);
+    color: #666;
+}
+
+body.light-mode .cashier-transaction-item {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+body.light-mode .transaction-edit-history {
+    background: rgba(255, 193, 7, 0.08);
+    border-color: rgba(255, 193, 7, 0.2);
+}
+
+body.light-mode .transaction-edit-record {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+body.light-mode .modal-close {
+    border-color: rgba(0, 0, 0, 0.1);
+    color: #666;
+}
+
+body.light-mode .modal-close:hover {
+    background: rgba(255, 87, 87, 0.1);
+}
+
+/* Transaction type buttons */
+.transaction-type-btn {
+    flex: 1;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.transaction-type-btn:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.transaction-type-btn.active[data-type="income"] {
+    background: rgba(0, 255, 136, 0.15);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.transaction-type-btn.active[data-type="expense"] {
+    background: rgba(255, 100, 100, 0.15);
+    border-color: #ff6b6b;
+    color: #ff6b6b;
+}
+
+body.light-mode .transaction-type-btn {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.1);
+    color: #666;
+}
+
+body.light-mode .transaction-type-btn:hover {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+/* =============================================
+   CASHIER DATE SELECTOR
+   ============================================= */
+
+.cashier-date-selector {
+    margin-left: auto;
+}
+
+.cashier-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+}
+
+.cashier-fees-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    background: linear-gradient(145deg, rgba(255, 180, 50, 0.15) 0%, rgba(255, 140, 0, 0.1) 100%);
+    border: 1px solid rgba(255, 180, 50, 0.3);
+    border-radius: 10px;
+    color: #ffb432;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cashier-fees-btn:hover {
+    border-color: rgba(255, 180, 50, 0.6);
+    background: linear-gradient(145deg, rgba(255, 180, 50, 0.25) 0%, rgba(255, 140, 0, 0.2) 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(255, 180, 50, 0.2);
+}
+
+.cashier-fees-btn i {
+    font-size: 14px;
+}
+
+.cashier-date-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    background: linear-gradient(145deg, rgba(30, 30, 30, 0.8) 0%, rgba(20, 20, 20, 0.95) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cashier-date-btn:hover {
+    border-color: var(--primary);
+    background: rgba(0, 204, 106, 0.1);
+}
+
+.cashier-date-btn i {
+    color: var(--primary);
+}
+
+/* Cashier Calendar Widget */
+.cashier-calendar-widget {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+}
+
+.cashier-cal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.cashier-cal-month {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 0.5px;
+}
+
+.cashier-cal-nav {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cashier-cal-nav:hover {
+    background: rgba(0, 255, 136, 0.1);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.cashier-cal-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    margin-bottom: 6px;
+}
+
+.cashier-cal-weekdays span {
+    text-align: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-tertiary);
+    padding: 4px 0;
+    text-transform: uppercase;
+}
+
+.cashier-cal-weekdays span:first-child {
+    color: rgba(255, 100, 100, 0.6);
+}
+
+.cashier-cal-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+.cashier-cal-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+}
+
+.cashier-cal-day:hover:not(.other-month) {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+}
+
+.cashier-cal-day.other-month {
+    color: rgba(255, 255, 255, 0.15);
+    cursor: default;
+}
+
+.cashier-cal-day.today {
+    background: var(--primary);
+    color: #000;
+    font-weight: 800;
+}
+
+.cashier-cal-day.selected:not(.today) {
+    background: rgba(0, 255, 136, 0.2);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+}
+
+.cashier-cal-day.has-transactions::after {
+    content: '';
+    position: absolute;
+    bottom: 3px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--primary);
+}
+
+.cashier-cal-day.today.has-transactions::after {
+    background: #000;
+}
+
+.cashier-today-btn {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    background: rgba(0, 255, 136, 0.08);
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.cashier-today-btn:hover {
+    background: rgba(0, 255, 136, 0.15);
+    border-color: var(--primary);
+}
+
+/* =============================================
+   PAYMENT METHODS
+   ============================================= */
+
+.payment-methods-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+}
+
+.payment-method-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-tertiary);
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.payment-method-btn i {
+    font-size: 16px;
+}
+
+.payment-method-btn:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: var(--text-secondary);
+}
+
+.payment-method-btn.active {
+    background: rgba(0, 204, 106, 0.15);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.payment-method-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 8px;
+    margin-left: 8px;
+    background: rgba(0, 204, 106, 0.1);
+    color: var(--primary);
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 4px;
+}
+
+.payment-method-badge i {
+    font-size: 10px;
+}
+
+/* =============================================
+   CARD BRANDS SELECTION
+   ============================================= */
+
+.card-brand-group {
+    background: rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 14px;
+    margin-top: -8px;
+}
+
+.card-brands-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+}
+
+.card-brand-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-tertiary);
+    font-size: 9px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.card-brand-btn i {
+    font-size: 18px;
+}
+
+.card-brand-btn:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: var(--text-secondary);
+}
+
+.card-brand-btn.active {
+    background: rgba(77, 171, 247, 0.15);
+    border-color: var(--secondary);
+    color: var(--secondary);
+}
+
+/* =============================================
+   CLIENT SELECTION IN TRANSACTION
+   ============================================= */
+
+.client-section {
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 14px;
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.client-search-wrap {
+    position: relative;
+}
+
+.client-suggestions-transaction {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(25, 25, 25, 0.98);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 100;
+    display: none;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.client-suggestions-transaction.active {
+    display: block;
+}
+
+.client-suggestion-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.client-suggestion-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.client-suggestion-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #000;
+}
+
+.client-suggestion-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.client-suggestion-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.client-suggestion-phone {
+    font-size: 11px;
+    color: var(--text-tertiary);
+}
+
+.client-suggestion-empty {
+    padding: 14px;
+    text-align: center;
+    color: var(--text-tertiary);
+    font-size: 12px;
+}
+
+/* =============================================
+   TRANSACTION ITEMS SEARCH & SELECTION
+   ============================================= */
+
+.items-section {
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 14px;
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.item-search-wrap {
+    position: relative;
+}
+
+.item-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(25, 25, 25, 0.98);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 100;
+    display: none;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.item-suggestions.active {
+    display: block;
+}
+
+.item-suggestion {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.item-suggestion:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.item-suggestion-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+}
+
+.item-suggestion-icon.product {
+    background: rgba(100, 180, 255, 0.15);
+    color: #64b4ff;
+}
+
+.item-suggestion-icon.service {
+    background: rgba(0, 255, 136, 0.15);
+    color: var(--primary);
+}
+
+.item-suggestion-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.item-suggestion-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.item-stock, .item-duration {
+    font-size: 10px;
+    color: var(--text-muted);
+}
+
+.item-stock.out {
+    color: #ff6b6b;
+}
+
+.item-stock.low {
+    color: #ffc107;
+}
+
+.item-suggestion-price {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.item-suggestion-empty {
+    padding: 16px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+/* Selected Items List */
+.selected-items-list {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.selected-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+}
+
+.selected-item-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+}
+
+.selected-item-icon.product {
+    background: rgba(100, 180, 255, 0.15);
+    color: #64b4ff;
+}
+
+.selected-item-icon.service {
+    background: rgba(0, 255, 136, 0.15);
+    color: var(--primary);
+}
+
+.selected-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.selected-item-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.selected-item-price {
+    font-size: 10px;
+    color: var(--text-muted);
+}
+
+.selected-item-qty {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.qty-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.qty-btn:hover {
+    background: rgba(0, 255, 136, 0.15);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.qty-value {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+    min-width: 20px;
+    text-align: center;
+}
+
+.selected-item-subtotal {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--primary);
+    min-width: 70px;
+    text-align: right;
+}
+
+.selected-item-remove {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    border: none;
+    background: rgba(255, 100, 100, 0.1);
+    color: rgba(255, 100, 100, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.selected-item-remove:hover {
+    background: rgba(255, 100, 100, 0.2);
+    color: #ff6b6b;
+}
+
+.items-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0 0;
+    margin-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.items-total-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.items-total-value {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+/* Transaction Items Preview (in card) */
+.transaction-items-preview {
+    margin-top: 8px;
+}
+
+.transaction-items-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: rgba(0, 255, 136, 0.08);
+    border-radius: 6px;
+    font-size: 11px;
+    color: var(--primary);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.transaction-items-toggle:hover {
+    background: rgba(0, 255, 136, 0.15);
+}
+
+.transaction-items-toggle .toggle-arrow {
+    font-size: 9px;
+    transition: transform 0.2s ease;
+}
+
+.transaction-items-toggle.expanded .toggle-arrow {
+    transform: rotate(180deg);
+}
+
+.transaction-items-list {
+    display: none;
+    margin-top: 8px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.transaction-items-list.expanded {
+    display: block;
+}
+
+.transaction-item-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.transaction-item-row:last-of-type {
+    border-bottom: none;
+}
+
+.transaction-item-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+}
+
+.transaction-item-icon.product {
+    background: rgba(100, 180, 255, 0.15);
+    color: #64b4ff;
+}
+
+.transaction-item-icon.service {
+    background: rgba(0, 255, 136, 0.15);
+    color: var(--primary);
+}
+
+.transaction-item-name {
+    flex: 1;
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.transaction-item-qty {
+    font-size: 11px;
+    color: var(--text-muted);
+    min-width: 30px;
+}
+
+.transaction-item-price {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-primary);
+    min-width: 60px;
+    text-align: right;
+}
+
+.transaction-items-summary {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0 0;
+    margin-top: 6px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.transaction-items-summary.final {
+    border-top: none;
+    padding-top: 4px;
+    margin-top: 2px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* ==== CARD FEES MODAL ==== */
+.card-fees-modal-large {
+    max-width: 900px !important;
+    width: 95%;
+}
+
+.card-fees-tabs {
+    display: flex;
+    gap: 8px;
+    padding: 20px 24px;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.card-fees-tab {
+    flex: 1;
+    padding: 12px 20px;
+    background: linear-gradient(145deg, #1a1a1a 0%, #141414 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.card-fees-tab:hover {
+    background: linear-gradient(145deg, #222 0%, #1a1a1a 100%);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.card-fees-tab.active {
+    background: linear-gradient(145deg, rgba(255, 180, 50, 0.15) 0%, rgba(255, 140, 0, 0.1) 100%);
+    border-color: rgba(255, 180, 50, 0.4);
+    color: #ffb432;
+}
+
+.card-fees-tab i {
+    font-size: 14px;
+}
+
+.card-fees-panel {
+    display: none;
+    padding: 24px;
+}
+
+.card-fees-panel.active {
+    display: block;
+}
+
+/* Fee Configuration Section */
+.fee-config-section {
+    margin-bottom: 24px;
+}
+
+.fee-config-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.fee-config-title i {
+    color: var(--primary);
+}
+
+.fee-config-title.debit i {
+    color: #64b4ff;
+}
+
+.fee-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.fee-card-item {
+    background: linear-gradient(145deg, #1a1a1a 0%, #141414 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: all 0.2s ease;
+}
+
+.fee-card-item:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.fee-card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.fee-card-icon.visa {
+    background: linear-gradient(145deg, rgba(26, 35, 126, 0.3) 0%, rgba(26, 35, 126, 0.15) 100%);
+    color: #5c6bc0;
+}
+
+.fee-card-icon.mastercard {
+    background: linear-gradient(145deg, rgba(255, 95, 0, 0.3) 0%, rgba(255, 95, 0, 0.15) 100%);
+    color: #ff5f00;
+}
+
+.fee-card-icon.elo {
+    background: linear-gradient(145deg, rgba(255, 204, 0, 0.3) 0%, rgba(255, 204, 0, 0.15) 100%);
+    color: #ffcc00;
+}
+
+.fee-card-icon.amex {
+    background: linear-gradient(145deg, rgba(0, 111, 207, 0.3) 0%, rgba(0, 111, 207, 0.15) 100%);
+    color: #006fcf;
+}
+
+.fee-card-icon.hipercard {
+    background: linear-gradient(145deg, rgba(178, 34, 34, 0.3) 0%, rgba(178, 34, 34, 0.15) 100%);
+    color: #b22222;
+}
+
+.fee-card-icon.other {
+    background: linear-gradient(145deg, rgba(150, 150, 150, 0.3) 0%, rgba(150, 150, 150, 0.15) 100%);
+    color: #999;
+}
+
+.fee-card-info {
+    flex: 1;
+}
+
+.fee-card-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.fee-card-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.fee-card-input {
+    width: 70px;
+    padding: 8px 10px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.fee-card-input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.fee-card-input-wrap span {
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Monthly Summary Section */
+.fees-month-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.fees-month-nav {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: linear-gradient(145deg, #1a1a1a 0%, #141414 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.fees-month-nav:hover {
+    border-color: #ffb432;
+    color: #ffb432;
+}
+
+.fees-month-label {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    min-width: 180px;
+    text-align: center;
+}
+
+/* Main Summary Grid */
+.fees-main-summary {
+    margin-bottom: 24px;
+}
+
+.fees-summary-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.fees-summary-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.fees-summary-row.final {
+    margin-top: 8px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.fees-summary-card {
+    background: linear-gradient(145deg, #1a1a1a 0%, #141414 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.fees-summary-card.large {
+    padding: 22px 24px;
+}
+
+.fees-summary-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.fees-summary-icon.total-sales {
+    background: linear-gradient(145deg, rgba(100, 180, 255, 0.2) 0%, rgba(100, 180, 255, 0.1) 100%);
+    color: #64b4ff;
+}
+
+.fees-summary-icon.credito-icon {
+    background: linear-gradient(145deg, rgba(0, 210, 106, 0.2) 0%, rgba(0, 210, 106, 0.1) 100%);
+    color: var(--primary);
+}
+
+.fees-summary-icon.debito-icon {
+    background: linear-gradient(145deg, rgba(100, 180, 255, 0.2) 0%, rgba(100, 180, 255, 0.1) 100%);
+    color: #64b4ff;
+}
+
+.fees-summary-icon.taxa-icon {
+    background: linear-gradient(145deg, rgba(255, 107, 107, 0.2) 0%, rgba(255, 107, 107, 0.1) 100%);
+    color: #ff6b6b;
+}
+
+.fees-summary-icon.total-taxas-icon {
+    background: linear-gradient(145deg, rgba(255, 107, 107, 0.2) 0%, rgba(255, 107, 107, 0.1) 100%);
+    color: #ff6b6b;
+}
+
+.fees-summary-icon.net-icon {
+    background: linear-gradient(145deg, rgba(255, 180, 50, 0.2) 0%, rgba(255, 140, 0, 0.1) 100%);
+    color: #ffb432;
+}
+
+.fees-summary-content {
+    flex: 1;
+}
+
+.fees-summary-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.fees-summary-value {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.fees-summary-card.large .fees-summary-value {
+    font-size: 26px;
+}
+
+.fees-summary-value.danger {
+    color: #ff6b6b;
+}
+
+.fees-summary-value.success {
+    color: var(--primary);
+}
+
+.fees-summary-card.highlight {
+    background: linear-gradient(145deg, rgba(255, 180, 50, 0.15) 0%, rgba(255, 140, 0, 0.08) 100%);
+    border-color: rgba(255, 180, 50, 0.3);
+}
+
+.fees-summary-card.highlight .fees-summary-value {
+    color: #ffb432;
+}
+
+/* Transactions Section */
+.fees-transactions-section {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 20px;
+}
+
+.fees-transactions-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.fees-transactions-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.fees-transactions-title i {
+    color: #ffb432;
+}
+
+.fees-transactions-count {
+    font-size: 12px;
+    color: var(--text-secondary);
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+}
+
+.fees-transactions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.fees-transaction-item {
+    background: linear-gradient(145deg, #1a1a1a 0%, #141414 100%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: all 0.2s ease;
+}
+
+.fees-transaction-item:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+    transform: translateX(4px);
+}
+
+.fees-transaction-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.fees-transaction-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.fees-transaction-desc {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
+}
+
+.fees-transaction-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.fees-transaction-date {
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.fees-transaction-type {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.fees-transaction-type.credito {
+    background: rgba(0, 210, 106, 0.15);
+    color: var(--primary);
+}
+
+.fees-transaction-type.debito {
+    background: rgba(100, 180, 255, 0.15);
+    color: #64b4ff;
+}
+
+.fees-transaction-brand {
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.fees-transaction-values {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.fees-transaction-amount {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.fees-transaction-fee {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: flex-end;
+}
+
+.fees-transaction-fee .fee-percent {
+    font-size: 10px;
+    color: var(--text-secondary);
+}
+
+.fees-transaction-fee .fee-value {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ff6b6b;
+}
+
+.fees-empty {
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--text-secondary);
+}
+
+.fees-empty i {
+    font-size: 52px;
+    margin-bottom: 16px;
+    opacity: 0.4;
+}
+
+.fees-empty p {
+    font-size: 14px;
+}
+

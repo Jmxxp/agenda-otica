@@ -1,0 +1,11 @@
+﻿/*
+ * Main stylesheet manifest
+ * Keep imports ordered: base -> layout -> screens.
+ */
+@import url('./base/core.css');
+@import url('./layout/shell-calendar-clients.css');
+@import url('./screens/modals-forms-services.css');
+@import url('./screens/script-builder.css');
+@import url('./screens/cashier.css');
+@import url('./screens/ai-chat.css');
+@import url('./screens/responsive-overrides.css');
